@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "candidates",
+  "info": {
+    "name": "candidate",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "candidateID": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "position": {
+      "model": "position"
+    }
+  }
+}

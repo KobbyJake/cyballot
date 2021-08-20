@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "positions",
+  "info": {
+    "name": "position",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "positionID": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "election": {
+      "model": "election"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "elections",
+  "info": {
+    "name": "election",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "electionID": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "institution": {
+      "model": "institution"
+    }
+  }
+}

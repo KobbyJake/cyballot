@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "voters",
+  "info": {
+    "name": "voter",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "voterID": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    }
+  }
+}

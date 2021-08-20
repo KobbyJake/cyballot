@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ballots",
+  "info": {
+    "name": "ballot",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "default": "voter",
+      "required": true,
+      "private": true
+    },
+    "ballotID": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    }
+  }
+}

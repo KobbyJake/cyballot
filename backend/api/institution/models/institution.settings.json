@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "institutions",
+  "info": {
+    "name": "institution",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "institutionID": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    }
+  }
+}
