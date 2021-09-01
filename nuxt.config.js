@@ -9,8 +9,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - cyballotFE',
-    title: 'cyballotFE',
+    titleTemplate: '%s - cyballot',
+    title: 'cyballot',
     htmlAttrs: {
       lang: 'en'
     },
@@ -47,17 +47,77 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
+    '@nuxtjs/toast',
+    '@nuxtjs/strapi',
+    // '@nuxtjs/axios',
+    // '@nuxtjs/auth-next',
   ],
-
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  //   axios: {
+  //   // See https://github.com/nuxt-community/axios-module#options
+  //   baseURL: process.env.API_URL || "http://127.0.0.1:1337",
+  //   credentials: true,
+  // },
+
+  // publicRuntimeConfig: {
+  //   axios: {
+  //     browserBaseURL: process.env.API_URL || "http://127.0.0.1:1337",
+  //   }
+  // },
+
+  // privateRuntimeConfig: {
+  //   axios: {
+  //     baseURL: process.env.API_URL || "http://127.0.0.1:1337",
+  //   }
+  // },
+
+  toast: {
+    // iconPack: 'fontawesome',
+    position: 'bottom-left',
+    duration: 5000
+  },
+
+  // auth: {
+  //   strategies: {
+  //     local: {
+  //       endpoints: {
+  //         login: { url: '/auth/local', method: 'post', propertyName: 'jwt' },
+  //         user: { url: '/user', method: 'get', propertyName: 'user' },
+  //         // logout: { url: '/', method: 'get' }
+  //         // logout: false
+  //       }
+  //     }
+  //   },
+  //   redirect: {
+  //     login: '/',
+  //     logout: '/',
+  //     home: '/balloting'
+  //   },
+  //   localStorage: false,
+  //   cookie: false,
+  //   vuex: {
+  //     namespace: 'auth'
+  //   }
+  // },
+
+  // router: {
+  //   middleware: ['auth']
+  // },
+  
+  strapi: {
+    url: process.env.API_URL || "http://127.0.0.1:1337",
+    entities: [
+      'users',
+      'institutions'
+    ],
+  },
+  
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,
