@@ -184,7 +184,6 @@
 
 <script>
 export default {
-  layout: "user",
   data() {
     return {
       dialog: false,

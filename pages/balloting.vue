@@ -1,5 +1,6 @@
 <template>
-   <v-row class="text-center">
+ <v-container class="">
+      <v-row class="text-center">
       <v-col v-for="n in 5" :key="n" cols="12" sm="3">
         <v-card elevation="11" class="pt-0 mb-5" max-width="250">
           <v-img
@@ -20,8 +21,10 @@
       </v-col>
 
     </v-row>
-</template>
   </v-container>
+ 
+
+ 
 </template>
 
 <script>

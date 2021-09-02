@@ -1,5 +1,4 @@
 <template>
- <v-container>
   <v-container fluid>
     <v-row class="text-center">
       <v-col cols="3" sm="2" md="4"></v-col>
@@ -52,7 +51,6 @@
       <v-col cols="3" sm="2" md="4"></v-col>
     </v-row>
   </v-container>
-      </v-container>
 </template>
   </v-container>
 </template>
@@ -90,7 +88,7 @@ export default {
       .then(() => {
         this.$store.authenticated = true;
           this.$toast.info('Welcome! '+this.$strapi.user.email);
-        this.$router.push("/results")
+        this.$router.push("/settings")
       }).catch(error =>this.$toast.error(error))
 
       // this.$auth

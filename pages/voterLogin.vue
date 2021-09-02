@@ -1,8 +1,8 @@
 <template>
       <v-container fluid>
         <v-row class="text-center">
-          <v-col cols="3" sm="2" md="3"></v-col>
-          <v-col cols="12" sm="8" md="6">
+          <v-col cols="3" sm="2" md="4"></v-col>
+          <v-col cols="12" sm="8" md="4">
             <v-card elevation="11" class="pt-10">
               <h2 class="purple--text text-uppercase">{{ title }}</h2>
               <v-divider color="purple" class="mt-2"></v-divider>
@@ -34,27 +34,20 @@
                   class="mr-4 text"
                   @click="validate"
                 >
-                  <span class="white--text">Login</span>
+                  <span class="white--text">Start Voting</span>
                   <v-icon light>mdi-cached</v-icon>
                 </v-btn>
               </v-form>
             </v-card>
           </v-col>
-          <v-col cols="3" sm="2" md="3"></v-col>
+          <v-col cols="3" sm="2" md="4"></v-col>
         </v-row>
       </v-container>
-    </template>
-  </v-container>
 </template>
 
 <script>
 export default {
-   middleware({ store, redirect }) {
-      // If the user is not authenticated
-      if (!store.state.authenticated) {
-        return redirect('/')
-      }
-    },
+ 
   data: () => ({
     title: "Login",
     valid: true,
@@ -79,7 +72,7 @@ export default {
     },
 
     onLogin() {
-     this.$router.to('/inspire');
+    //  this.$router.to('/inspire');
     }
   }
 };
