@@ -1,11 +1,12 @@
 <template>
   <v-container class="">
-    <v-row class="text-center">
+    <v-row class="text-center animate__animated animate__backInDown">
       <v-col cols="3" sm="2" md="3"></v-col>
       <v-col cols="12" sm="4" md="6">
-        <v-card class="" elevation="16" max-width="100%">
+        <v-card elevation="11" class="pt-10" max-width="100%">
+          <h3 class="purple--text text-uppercase">Event Settings</h3>
+          <v-divider color="purple" class="mt-2"></v-divider>
           <v-card-text>
-            <div class="text--primary">Event specifications</div>
             <form>
               <v-select
                 key="institution.id"
@@ -29,8 +30,14 @@
               ></v-select>
             </form>
           </v-card-text>
-          <v-card-actions>
-            <v-btn outline color="green" @click="setUp"> Save Settings </v-btn>
+          <v-card-actions v-if="ready">
+            <v-btn outlined color="purple" @click="vote">
+              Setup Voting
+            </v-btn>
+            <v-spacer />
+            <v-btn outlined color="purple" @click="count">
+              Setup Counting 
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -52,7 +59,14 @@ export default {
       candidates: {},
     }
   },
-
+ computed: {
+    ready() {
+      if(this.institution.id && this.election.id){
+        return true
+      }
+      return false 
+    }
+  },
   watch: {
     institution(newValue, oldValue) {
       this.$strapi
@@ -75,6 +89,7 @@ export default {
         })
     },
   },
+ 
   mounted() {
     this.$strapi
       .find('institutions')
@@ -87,6 +102,14 @@ export default {
       })
   },
   methods: {
+    vote(){
+      this.setUp()
+      this.$router.push('/login')
+    },
+    count(){
+      this.setUp()
+      this.$router.push('/counter')
+    },
     setUp() {
       this.$toast.info('Setup Started')
       this.positions.forEach((position) => {
@@ -102,9 +125,18 @@ export default {
       this.specs.election = this.election
       this.specs.positions = this.positions
       this.specs.candidates = this.candidates
-      this.$store.commit("SET_ELECTION", this.specs);
-      this.$router.push("/voterLogin")
-      // this.$store.changeElection(this.specs)
+      this.$store.commit('SET_ELECTION', this.specs)
+      this.$store.commit('SET_TITLE', this.institution.name)
+      if (this.specs.institution.logo) {
+        let logoUrl = ''
+        if (this.specs.institution.logo.formats.thumbnail.url.startsWith('/')) {
+          logoUrl = `http://localhost:1337${this.specs.institution.logo.formats.thumbnail.url}`
+        } else {
+          logoUrl = this.specs.institution.logo.formats.thumbnail.url
+        }
+        this.$store.commit('SET_LOGO', logoUrl)
+      }
+      
     },
   },
 }
