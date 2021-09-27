@@ -1,218 +1,275 @@
 <template>
-  <v-tabs fill-height>
-    <v-tab class="text-none">
-      <!-- <v-icon left>mdi-account</v-icon> -->
-      Introduction
-    </v-tab>
-    <v-tab class="text-none">
-      <!-- <v-icon left>mdi-account</v-icon> -->
-      Quiz
-    </v-tab>
-
-    <v-tab-item>
-      <v-carousel fill-height>
-        <v-carousel-item>
-          <!-- <br /> -->
-          <h1 class="display-2 font-weight-black text-center">
-            Learn about COVID-19
-          </h1>
-          <hr />
-          <v-row class="fill-height" align="center" justify="center">
-            <!-- <img src="~assets/covidscare.jpg" width="900" /> -->
-          </v-row>
-        </v-carousel-item>
-        <v-carousel-item>
-          <h1 class="display-2 font-weight-black text-center">
-            What is COVID-19?
-          </h1>
-          <hr />
-          <br />
-          <p class="display-1 font-weight-medium">
-            COVID-19, otherwise known as coronavirus disease 2019, is a new
-            illness caused by a previously unknown virus called SARS-CoV-2. The
-            virus is part of a family of coronaviruses which are responsible for
-            lots of different illness from the common cold to the flu. But this
-            new strain can be more severe in some populations. Discovered in
-            December 2019, the virus has since spread around the world and on 11
-            March, the World Health Organization (WHO) declared it pandemic.
-          </p>
-        </v-carousel-item>
-        <v-carousel-item>
-          <h1 class="display-2 font-weight-black text-center">
-            How is COVID-19 spread?
-          </h1>
-          <hr />
-          <br />
-          <p class="display-1 font-weight-medium">
-            COVID-19 is spread through contact with respiratory droplets of a
-            person currently infected with the virus. These droplets come from
-            the nose or mouth of an infected person and may land on surfaces and
-            objects around them. The virus is then spread when another person
-            comes into contact with these droplets and touches their own face,
-            nose or mouth. The virus may also be spread when an infected person
-            sneezes, coughs or exhales, and people around them breathe in these
-            micro-droplets. For this reason, it’s important to stay around one
-            meter (3 feet) away from someone you know to have the virus.
-          </p>
-        </v-carousel-item>
-        <v-carousel-item>
-          <h1 class="display-2 font-weight-black text-center">
-            What are the symptoms of COVID-19?
-          </h1>
-          <hr />
-          <br />
-          <p class="display-1 font-weight-medium">
-            The most common symptoms are a dry cough, tiredness and a high
-            temperature. Other flu-like symptoms such as aches and pains, nasal
-            congestion, runny nose, sore throat or diarrhoea are also common.
-          </p>
-          <p class="display-1 font-weight-medium">
-            Around 80% of people with COVID-19 recover from the virus without
-            the need for special treatment, usually in around seven days. Many
-            may not even know that they have the virus, while others may feel
-            like they have the common cold and treat it as they normally would
-            at home. Around one in six people will get seriously ill from the
-            virus and may have trouble breathing. These people will need
-            hospitalisation.
-          </p>
-        </v-carousel-item>
-        <v-carousel-item>
-          <v-row class="fill-height" align="center" justify="center">
-            <!-- <img src="~assets/signs.JPG" width="900" /> -->
-          </v-row>
-        </v-carousel-item>
-      </v-carousel>
-    </v-tab-item>
-    <v-tab-item>
+  <v-container fluid fill-height>
+    <v-row>
       <v-carousel
         v-model="model"
         fill-height
         :show-arrows="false"
         hide-delimiters
       >
+        <v-carousel-item fill-height>
+          <v-container fluid class="justify-center">
+            <v-card
+              class="
+                text-center
+                animate__animated
+                animate__pulse
+                animate__infinite
+                animate__slower
+              "
+            >
+              <v-btn class="mx-2" fab dark large color="purple" @click="start">
+                <v-icon dark> mdi-arrow-right-drop-circle </v-icon>
+              </v-btn>
+              <h3 class="purple--text text-h2 font-weight-black">
+                Declaration of Results
+              </h3>
+              <h3 class="purple--text">{{ title }}</h3>
+              <v-divider color="purple" class="mt-2"></v-divider>
+              <p class="text-center text-h1 font-weight-black">
+                {{ votesCast }}
+              </p>
+              <p class="text-center text-h3">votes out of</p>
+              <p class="text-center text-h1 font-weight-black">
+                {{ totalVoters }}
+              </p>
+              <v-divider color="purple" class="mt-2"></v-divider>
+            </v-card>
+          </v-container>
+        </v-carousel-item>
         <v-carousel-item>
           <v-container>
-            <v-row>
-              <p class="display-2 font-weight-black text-center">
-                Test your knowledge on COVID-19
-              </p>
-            </v-row>
-          </v-container>
-
-          <hr />
-
-          <v-container text-center align-center justify-center>
-            <v-row>
-              <v-btn
-                outlined
-                rounded
-                large
-                color="default"
-                class="text-none"
-                @click="model++"
-                ><v-icon left>mdi-marker-check</v-icon>Start work</v-btn
+            <v-row class="text-center" justify-end fill-height>
+              <v-col
+                v-for="item in displayed"
+                :key="item.id"
+                class="animate__animated animate__backInDown"
+                cols="12"
+                sm="4"
               >
-              <v-spacer></v-spacer>
-              <p>
-                Instruction: Select (click) the correct option
-              </p>
+                <v-card elevation="11" class="pt-0 mb-5" max-width="350">
+                  <h2 class="black--text text-uppercase">{{ item.name }}</h2>
+                  <v-avatar size="100">
+                    <img :src="getImage(item)" :alt="item.name" />
+                  </v-avatar>
+
+                  <v-divider color="purple" class="mt-2"></v-divider>
+                  <p class="text-center text-h3 font-weight-black">
+                    {{ item.votes }} out of {{ votesCast }}
+                  </p>
+                  <span class="text-center text-h5 font-weight-black">
+                    Representing {{(item.votes/votesCast * 100).toFixed(2)}}%
+                  </span>
+                  <v-btn
+                    dark
+                    large
+                    color="purple"
+                    @click="setWinner(item.name)"
+                  >
+                    <v-icon dark> mdi-crown </v-icon>
+                  </v-btn>
+                  <br />
+                  <br />
+                </v-card>
+              </v-col>
+              <v-col cols="12" sm="4">
+                <v-card
+                  
+                  elevation="11"
+                  class="pt-0 mb-5"
+                  max-width="350"
+                >
+                  <h2 class="black--text text-uppercase">No Vote</h2>
+                  <v-avatar size="100">
+                    <img src="/img/miscell.png" />
+                  </v-avatar>
+
+                  <v-divider color="purple" class="mt-2"></v-divider>
+                  <p class="text-center text-h3 font-weight-black">
+                    {{ noVoteCount }} out of {{ votesCast }}
+                  </p>
+                   <span class="text-center text-h5 font-weight-black">
+                    Representing {{(noVoteCount/votesCast * 100).toFixed(2)}}%
+                  </span>
+                  <v-btn
+                    dark
+                    large
+                    color="purple"
+                    @click="setWinner('PENDING')"
+                  >
+                    <v-icon dark> mdi-crown </v-icon>
+                  </v-btn>
+                  <br />
+                  <br />
+                </v-card>
+              </v-col>
             </v-row>
-            <v-row align="center" justify="center">
-              <!-- <img src="~assets/exams.svg" alt="exam svg" width="400vw" /> -->
+          </v-container>
+        </v-carousel-item>
+        <v-carousel-item>
+          <v-container>
+            <v-row justify="center">
+              <v-dialog
+                v-model="dialog"
+                fullscreen
+                transition="dialog-bottom-transition slower"
+              >
+                <v-card justify="center">
+                  <p
+                    class="text-center text-h4 grey lighten-2 font-weight-black"
+                  >
+                    WINNERS DECLARED
+                  </p>
+
+                  <p
+                    v-for="item in winners"
+                    :key="item.id"
+                    class="text-center text-h5 font-weight-black"
+                  >
+                    {{ item.contest }}: {{ item.winner }}
+                  </p>
+
+                  <v-divider></v-divider>
+                </v-card>
+              </v-dialog>
             </v-row>
-          </v-container>
-        </v-carousel-item>
-        <v-carousel-item>
-         <v-container fluid>
-            
-          </v-container>
-        </v-carousel-item>
-        <v-carousel-item>
-         <v-container fluid>
-            
-          </v-container>
-        </v-carousel-item>
-        <v-carousel-item>
-          <v-container fluid>
-            
-          </v-container>
-        </v-carousel-item>
-        <v-carousel-item>
-          <v-container fluid>
-            
-          </v-container>
-        </v-carousel-item>
-        <v-carousel-item>
-         <v-container fluid>
-            
-          </v-container>
-        </v-carousel-item>
-        <v-carousel-item>
-         <v-container fluid>
-            
-          </v-container>
-        </v-carousel-item>
-        <v-carousel-item>
-         <v-container fluid>
-            
-          </v-container>
-        </v-carousel-item>
-        <v-carousel-item>
-         <v-container fluid>
-            
-          </v-container>
-        </v-carousel-item>
-        <v-carousel-item>
-          <v-container fluid>
-            
-          </v-container>
-        </v-carousel-item>
-        <v-carousel-item>
-         <v-container fluid>
-            
-          </v-container>
-        </v-carousel-item>
-        <v-carousel-item>
-         <v-container fluid>
-            
           </v-container>
         </v-carousel-item>
       </v-carousel>
-    </v-tab-item>
-  </v-tabs>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
 export default {
-  layout: "user",
   data() {
     return {
+      noVoteCount: 0,
+      totalVoters: 0,
+      votesCast: 0,
       dialog: false,
       model: 0,
-      marks: 0
-    };
+      positions: [],
+      candidates: [],
+      displayed: [],
+      selection: [],
+      election: {},
+      votes: [],
+      winners: [],
+      index: 0,
+    }
+  },
+
+  computed: {
+    title() {
+      return this.$store.state.election.institution
+        ? this.$store.state.election.election.name +
+            ', ' +
+            this.$store.state.election.institution.name
+        : 'Cyballot Voting System'
+    },
+  },
+  mounted() {
+    this.election = { ...this.$store.state.election }
+    this.$strapi.find('votes').then((res) => {
+      this.votes = res
+    })
+    this.$strapi
+      .count('voters')
+      .then((res) => {
+        this.totalVoters = res
+        this.getVotesCast()
+      })
+      .then(() => {
+        this.setBallot()
+      })
   },
   methods: {
-    response() {
-      this.$toast.success("Correct Response", {
-        iconPack: "mdi",
-        icon: "mdi-check",
-        theme: "outline"
-      });
-      this.marks++;
-      this.model++;
+    setWinner(name) {
+      this.winners.push({
+        contest: this.positions[this.index].name,
+        winner: name,
+      })
+      this.next()
     },
-    conclude() {
-      this.$axios.put("/score", {
-        id: this.$auth.user.id,
-        score: this.marks,
-        status: "Educated"
-      });
-      this.dialog = true;
-      // this.model++
-    }
-  }
-};
+    start() {
+      this.model++
+      this.$store.commit('SET_TITLE', this.positions[this.index].name)
+    },
+    getVoteCount() {
+      this.displayed = []
+      this.candidates[this.positions[this.index].name].forEach((item) => {
+        this.$strapi
+          .count('votes', {
+            choice: item.name,
+            position: this.positions[this.index].name,
+          })
+          .then((res) => {
+            item.votes = res
+            this.displayed.push(item)
+          })
+      })
+      this.$strapi
+        .count('votes', {
+          choice: 'NO VOTE',
+          position: this.positions[this.index].name,
+        })
+        .then((res) => {
+          this.noVoteCount = res
+        })
+    },
+    getVotesCast() {
+      this.$strapi
+        .count('events', {
+          election: this.$store.state.election.election.name,
+          institution: this.$store.state.election.institution.name,
+          activity: 'voted',
+        })
+        .then((res) => {
+          this.votesCast = res
+        })
+    },
+    getImage(item) {
+      let url = '/img/miscell.png'
+      try {
+        url = item.photo.formats.thumbnail.url
+        // Check if URL is a local path
+        if (url.startsWith('/')) {
+          // Prepend Strapi address
+          return `http://jakestation:1337${url}`
+        }
+        // Otherwise return full URL
+        return url
+      } catch (error) {
+        return url
+      }
+    },
+    next() {
+      this.index += 1
+      if (this.index < this.positions.length) {
+        if (this.candidates[this.positions[this.index].name]) {
+          this.$store.commit('SET_TITLE', this.positions[this.index].name)
+          this.getVoteCount()
+          // this.animate__animated = true
+        } else {
+          this.next()
+        }
+      } else {
+        // show selection summary
+        this.model++
+        this.dialog = true
+      }
+    },
+    validate() {
+      this.refs.form.validate()
+    },
+    setBallot() {
+      this.positions = this.election.positions
+      this.candidates = this.election.candidates
+      this.getVoteCount()
+    },
+  },
+}
 </script>
 <style>
 /* .wall {

@@ -1,17 +1,17 @@
 <template>
- <v-container>
   <v-container fluid>
-    <v-row class="text-center">
+    <v-row class="text-center animate__animated animate__flipInX">
       <v-col cols="3" sm="2" md="4"></v-col>
       <v-col cols="12" sm="8" md="4">
         <v-card elevation="11" class="pt-10">
-          <h2 class="purple--text text-uppercase">{{ title }}</h2>
+          <h3 class="purple--text text-uppercase">{{ title }}</h3>
           <v-divider color="purple" class="mt-2"></v-divider>
           <v-form
             ref="form"
             v-model="valid"
             class="mt-10 mb-6 pr-8 pl-8 pb-8 pt-4"
             lazy-validation
+            @keydown.enter.native="validate"
           >
             <v-text-field
               v-model="email"
@@ -52,7 +52,6 @@
       <v-col cols="3" sm="2" md="4"></v-col>
     </v-row>
   </v-container>
-      </v-container>
 </template>
   </v-container>
 </template>
@@ -77,11 +76,9 @@ export default {
   }),
 
   methods: {
+
     validate() {
       this.onLogin()
-      // if (this.refs.form.validate()) {
-      //   this.onLogin()
-      // }
     },
 
     onLogin() {
@@ -89,22 +86,9 @@ export default {
       .login({ identifier: this.email, password: this.password })
       .then(() => {
         this.$store.authenticated = true;
-          this.$toast.info('Welcome! '+this.$strapi.user.email);
-        this.$router.push("/results")
+        // this.$router.push("/results")
+        this.$router.push("/settings")
       }).catch(error =>this.$toast.error(error))
-
-      // this.$auth
-      //   .loginWith('local', {
-      //     identifier: this.email,
-      //     password: this.password,
-      //   })
-        // .then((response) => {
-        //   this.$toast.info('Welcome!!!!' + response.user.email)
-        //   this.$router.push('/balloting')
-        // })
-        // .catch((error) => {
-        //   this.$toast.error(error)
-        // })
     },
   },
 }

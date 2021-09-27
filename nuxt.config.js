@@ -27,6 +27,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '@/assets/animate.min.css',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -105,7 +106,7 @@ export default {
   // },
   
   strapi: {
-    url: process.env.API_URL || "http://127.0.0.1:1337",
+    url: process.env.API_URL || "http://jakestation:1337",
     entities: [
       'users',
       'institutions'
