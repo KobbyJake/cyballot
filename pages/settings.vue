@@ -3,7 +3,7 @@
     <v-row class="text-center animate__animated animate__backInDown">
       <v-col cols="3" sm="2" md="3"></v-col>
       <v-col cols="12" sm="4" md="6">
-        <v-card elevation="11" class="pt-10" max-width="100%">
+        <v-card elevation="11" class="pt-10 mb-15" max-width="100%">
           <h3 class="purple--text text-uppercase">Event Settings</h3>
           <v-divider color="purple" class="mt-2"></v-divider>
           <v-card-text>
@@ -37,6 +37,10 @@
             <v-spacer />
             <v-btn outlined color="purple" @click="count">
               Setup Counting 
+            </v-btn>
+            <v-spacer />
+            <v-btn outlined color="purple" @click="result">
+              Setup Results
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -110,8 +114,12 @@ export default {
       this.setUp()
       this.$router.push('/counter')
     },
+    result(){
+      this.setUp()
+      this.$router.push('/results')
+    },
     setUp() {
-      this.$toast.info('Setup Started')
+      // this.$toast.info('Setup Started')
       this.positions.forEach((position) => {
         this.$strapi
           .find('candidates', { position: position.id })
@@ -130,7 +138,7 @@ export default {
       if (this.specs.institution.logo) {
         let logoUrl = ''
         if (this.specs.institution.logo.formats.thumbnail.url.startsWith('/')) {
-          logoUrl = `http://localhost:1337${this.specs.institution.logo.formats.thumbnail.url}`
+          logoUrl = `http://jakestation:1337${this.specs.institution.logo.formats.thumbnail.url}`
         } else {
           logoUrl = this.specs.institution.logo.formats.thumbnail.url
         }

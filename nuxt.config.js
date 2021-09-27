@@ -106,7 +106,7 @@ export default {
   // },
   
   strapi: {
-    url: process.env.API_URL || "http://127.0.0.1:1337",
+    url: process.env.API_URL || "http://jakestation:1337",
     entities: [
       'users',
       'institutions'

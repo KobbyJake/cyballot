@@ -10,20 +10,20 @@
           <v-form
             ref="form"
             v-model="valid"
-            class="mt-10 mb-6 pr-8 pl-8 pb-8 pt-4"
+            class="mt-10 mb-6 pr-8 pl-8 pb-8 pt-4 "
             lazy-validation
+            @keydown.enter.native="validate"
           >
            
             <v-text-field
               v-model="password"
-              class="text-h4 text-center"
+              class="text-h3 text-center"
               :type="show1 ? 'text' : 'password'"
-              label="Password"
+              label="Enter code here"
               outlined
               required
               color="purple"
-              height = 80
-              prepend-icon="mdi-form-textbox-password"
+              height = 60
               :rules="passwordRules"
               :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
               @click:append="show1 = !show1"
@@ -33,8 +33,8 @@
               x-large
               block
               :disabled="!valid"
-              outlined
-              color="purple"
+              
+              color="green"
               class="mr-4 text"
               @click="validate"
             >

@@ -47,6 +47,8 @@ export default {
   methods: {
     getVotesCast(){
       this.$strapi.count("events", {
+        election: this.$store.state.election.election.name,
+        institution: this.$store.state.election.institution.name,
         activity: "voted"
       }).then(res =>{
         this.votesCast = res

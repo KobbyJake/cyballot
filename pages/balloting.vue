@@ -17,7 +17,7 @@
           <v-divider color="purple" class="mt-2"></v-divider>
 
           <v-card-actions>
-            <v-btn block color="green" outlined @click="choose(item)">
+            <v-btn block color="green"  @click="choose(item)">
               <v-icon light>mdi-vote</v-icon>
               Vote
             </v-btn>
@@ -45,15 +45,14 @@
     <v-row justify="center">
       <v-dialog
         v-model="dialog"
-        
+        fullscreen
         transition="dialog-bottom-transition"
       >
         <v-card justify="center">
-          <v-card-title class="text-h5 grey lighten-2 text-center">
-            <p class="text-center">
+            <p class="text-center text-h4 grey lighten-2">
             Summary of Votes by {{ $store.state.voter.name }}
             </p>
-          </v-card-title>
+         
 
           <v-card-text v-for="item in selection" :key="item.id">
             {{ item.position }}: {{ item.choice }}
@@ -63,9 +62,10 @@
 
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" text @click="saveVote()"> 
-              <v-icon light>mdi-ballot-outline</v-icon>
-              I accept </v-btn>
+            <v-btn color="green" block x-large @click="saveVote()"> 
+              ok 
+              <!-- <v-icon light>mdi-ballot-outline</v-icon> -->
+              </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -76,8 +76,6 @@
 <script>
 export default {
   data: () => ({
-    animate__animated: false,
-    title: 'Candite  Name',
     positions: [],
     candidates: [],
     displayed: [],
@@ -108,6 +106,8 @@ export default {
       // change voter status to voted
       this.$strapi.create('events', {
         voter: this.voter.index,
+        election: this.election.election.name,
+        institution: this.election.institution.name,
         activity: "voted"
       })
       // this.$strapi.update('voters', this.voter.id, { status: 'voted' })
@@ -142,18 +142,13 @@ export default {
         // Check if URL is a local path
         if (url.startsWith('/')) {
           // Prepend Strapi address
-          return `http://localhost:1337${url}`
+          return `http://jakestation:1337${url}`
         }
         // Otherwise return full URL
         return url
       } catch (error) {
         return url
       }
-      // if(!url){
-      //    url = "/img/miscell.png"
-      //    return url
-      // }
-      //  return getStrapiMedia(this.$store.state.election.institution.logo.formats.thumbnail.url)
     },
     next() {
       this.index += 1

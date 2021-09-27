@@ -11,6 +11,7 @@
             v-model="valid"
             class="mt-10 mb-6 pr-8 pl-8 pb-8 pt-4"
             lazy-validation
+            @keydown.enter.native="validate"
           >
             <v-text-field
               v-model="email"
@@ -78,9 +79,6 @@ export default {
 
     validate() {
       this.onLogin()
-      // if (this.refs.form.validate()) {
-      //   this.onLogin()
-      // }
     },
 
     onLogin() {
@@ -88,21 +86,9 @@ export default {
       .login({ identifier: this.email, password: this.password })
       .then(() => {
         this.$store.authenticated = true;
+        // this.$router.push("/results")
         this.$router.push("/settings")
       }).catch(error =>this.$toast.error(error))
-
-      // this.$auth
-      //   .loginWith('local', {
-      //     identifier: this.email,
-      //     password: this.password,
-      //   })
-        // .then((response) => {
-        //   this.$toast.info('Welcome!!!!' + response.user.email)
-        //   this.$router.push('/balloting')
-        // })
-        // .catch((error) => {
-        //   this.$toast.error(error)
-        // })
     },
   },
 }

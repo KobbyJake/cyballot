@@ -3,7 +3,7 @@
     <v-app-bar fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-spacer />
-      <h2 class="purple--text text-uppercase">{{position}}</h2>
+      <p class="text-h4 text-uppercase font-weight-black">{{position}}</p>
       <!-- <v-toolbar-title class="animate__animated animate__pulse animate__infinite" v-text="position" /> -->
       <v-spacer />
     </v-app-bar>
@@ -12,7 +12,7 @@
     </v-main>
 
     <v-footer :absolute="!fixed" app>
-      <span v-show="voter">{{"Voter: "+ voter}}</span>
+      <span v-show="voter">{{"Voter: "+ voter}} </span>
       <span>{{ title }}</span>
       <v-spacer />
       <span>CYBALLOT Voting System - 0242525727 &copy; {{ new Date().getFullYear() }}</span>
